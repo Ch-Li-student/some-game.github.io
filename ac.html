@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的世界导航站</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6', // HMCL主色调
+                        secondary: '#10B981',
+                        accent: '#8B5CF6',
+                        dark: '#1E293B', // HMCL背景色
+                        darker: '#0F172A', // 更深的背景色
+                        light: '#F8FAFC',
+                        curse: '#F96816',
+                        modrinth: '#1BD96A'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'hmcl': '0 4px 14px 0 rgba(0, 0, 0, 0.3)',
+                        'hmcl-hover': '0 6px 20px 0 rgba(0, 0, 0, 0.5)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .btn-hmcl {
+                @apply bg-dark text-white rounded-xl shadow-hmcl transition-all duration-300 ease-in-out hover:shadow-hmcl-hover hover:bg-primary/90 transform hover:-translate-y-1;
+            }
+            .btn-curse {
+                @apply bg-curse text-white rounded-xl shadow-hmcl transition-all duration-300 ease-in-out hover:shadow-hmcl-hover hover:bg-curse/90 transform hover:-translate-y-1;
+            }
+            .btn-modrinth {
+                @apply bg-modrinth text-white rounded-xl shadow-hmcl transition-all duration-300 ease-in-out hover:shadow-hmcl-hover hover:bg-modrinth/90 transform hover:-translate-y-1;
+            }
+            .btn-center {
+                @apply flex items-center justify-center;
+            }
+            .nav-item {
+                @apply flex items-center gap-3 px-4 py-2 rounded-lg transition-all duration-200 hover:bg-primary/20 cursor-pointer;
+            }
+            .nav-item-active {
+                @apply bg-primary/30 font-medium;
+            }
+            .glass-effect {
+                @apply bg-white/10 backdrop-blur-md border border-white/20;
+            }
+            .sidebar-right {
+                @apply w-full md:w-64 bg-dark p-4 border-r border-gray-800 flex flex-col;
+            }
+        }
+    </style>
+</head>
+<body class="bg-darker text-light min-h-screen">
+    <div class="flex flex-col md:flex-row h-screen">
+        <!-- 侧边栏 - 模仿HMCL左侧菜单 -->
+        <aside class="w-full md:w-64 bg-dark p-4 border-r border-gray-800 flex flex-col">
+            <div class="mb-6">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
+                        <i class="fa fa-gamepad text-xl"></i>
+                    </div>
+                    <h1 class="text-xl font-bold">游戏导航站</h1>
+                </div>
+                
+                <nav class="space-y-1">
+                    <a href="#" class="nav-item nav-item-active">
+                        <i class="fa fa-home w-5 text-center"></i>
+                        <span>主页</span>
+                    </a>
+                    <a href="http://127.0.0.1:5500/index.html" class="nav-item">
+                        <i class="fa fa-cubes w-5 text-center"></i>
+                        <span>我的世界</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i class="fa fa-download w-5 text-center"></i>
+                        <span>下载管理</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i class="fa fa-cog w-5 text-center"></i>
+                        <span>设置</span>
+                    </a>
+                </nav>
+            </div>
+            
+            <!-- 账号信息区域 -->
+            <div class="mt-auto glass-effect rounded-xl p-3">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-primary/30 flex items-center justify-center">
+                        <i class="fa fa-user"></i>
+                    </div>
+                    <div>
+                        <div class="text-sm font-medium">未登录</div>
+                        <button class="text-xs text-primary hover:underline">登录账号</button>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- 主内容区 -->
+        <main class="flex-1 overflow-y-auto p-6">
+            <div class="max-w-6xl mx-auto">
+                <!-- 头部横幅 -->
+                <div class="relative rounded-2xl overflow-hidden mb-8 h-40 md:h-56">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary/80 to-dark/90 z-10"></div>
+                    <div class="absolute inset-0 opacity-30">
+                        <!-- 这里可以放背景图，HMCL风格通常有模糊的游戏元素 -->
+                        <svg viewBox="0 0 1000 400" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                            <path fill="#3B82F6" d="M0,0L50,26.7C100,53,200,107,300,128C400,149,500,139,600,122.7C700,107,800,85,900,74.7C950,69,975,64,987.5,61.3L1000,59L1000,0L987.5,0C975,0,950,0,900,0C850,0,800,0,750,0C700,0,650,0,600,0C550,0,500,0,450,0C400,0,350,0,300,0C250,0,200,0,150,0C100,0,50,0,25,0L0,0Z"></path>
+                            <path fill="#1E40AF" d="M0,0L50,10.7C100,21,200,43,300,64C400,85,500,107,600,106.7C700,107,800,85,900,74.7C950,69,975,64,987.5,61.3L1000,59L1000,400L987.5,400C975,400,950,400,900,400C850,400,800,400,750,400C700,400,650,400,600,400C550,400,500,400,450,400C400,400,350,400,300,400C250,400,200,400,150,400C100,400,50,400,25,400L0,400Z"></path>
+                        </svg>
+                    </div>
+                    <div class="absolute inset-0 z-20 flex flex-col justify-center p-6">
+                        <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold mb-2">资源收录站</h2>
+                        <p class="text-gray-300 max-w-lg">发现和管理你喜爱的游戏、模组、资源包和整合包</p>
+                    </div>
+                </div>
+                
+                <!-- 搜索栏 -->
+                <div class="mb-8">
+                    <div class="relative max-w-2xl mx-auto">
+                        <input type="text" placeholder="搜索游戏、模组或资源..." 
+                               class="w-full bg-dark border border-gray-700 rounded-xl py-3 px-4 pl-12 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all">
+                        <i class="fa fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                </div>
+                
+                <!-- 按钮网格 -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <a href="https://baidu.com" class="btn-hmcl btn-center p-4">
+                        <i class="fa fa-search text-xl mr-2"></i>
+                        <span class="font-medium">百度</span>
+                    </a>
+                    <a href="https://slowroads.io/" class="btn-hmcl btn-center p-4">
+                        <i class="fa fa-car text-xl mr-2"></i>
+                        <span class="font-medium">开车</span>
+                    </a>
+                    <a href="https://www.miyoushe.com/ys/" class="btn-hmcl btn-center p-4">
+                        <i class="fa fa-gamepad text-xl mr-2"></i>
+                        <span class="font-medium">原神</span>
+                    </a>
+                    <a href="https://store.steampowered.com/" class="btn-hmcl btn-center p-4">
+                        <i class="fa fa-steam text-xl mr-2"></i>
+                        <span class="font-medium">Steam</span>
+                    </a>
+                    <a href="https://github.com/" class="btn-hmcl btn-center p-4">
+                        <i class="fa fa-github text-xl mr-2"></i>
+                        <span class="font-medium">GitHub</span>
+                    </a>
+                    <a href="https://hao.360.cn/" class="btn-hmcl btn-center p-4">
+                        <i class="fa fa-search text-xl mr-2"></i>
+                        <span class="font-medium">360搜索</span>
+                    </a>
+                    <a href="http://ybt.ssoier.cn:8088/index.php" class="btn-hmcl btn-center p-4">
+                        <i class="fa fa-book text-xl mr-2"></i>
+                        <span class="font-medium">一本通</span>
+                    </a>
+                    <a href="https://www.kodub.com/" class="btn-hmcl btn-center p-4">
+                        <i class="fa fa-gamepad text-xl mr-2"></i>
+                        <span class="font-medium">Kodub小游戏</span>
+                    </a>
+                    <a href="https://www.curseforge.com/" class="btn-curse btn-center p-4">
+                        <i class="fa fa-fire text-xl mr-2"></i>
+                        <span class="font-medium">CurseForge</span>
+                    </a>
+                    <a href="https://modrinth.com/" class="btn-modrinth btn-center p-4">
+                        <i class="fa fa-cube text-xl mr-2"></i>
+                        <span class="font-medium">Modrinth</span>
+                    </a>
+                    <a href="https://gamemcu.com/su7/" class="btn-hmcl btn-center p-4">
+                        <i class="fa fa-cube text-xl mr-2"></i>
+                        <span class="font-medium">su7模型</span>
+                    </a>
+                    <a href="https://radiocast.co/" class="btn-hmcl btn-center p-4">
+                        <i class="fa fa-volume-up text-xl mr-2"></i>
+                        <span class="font-medium">电台</span>
+                    </a>
+                    <a href="https://www.douyin.com/?recommend=1" class="btn-hmcl btn-center p-4">
+                        <i class="fa fa-music text-xl mr-2"></i>
+                        <span class="font-medium">抖音</span>
+                    </a>
+                    <a href="https://www.mc.js.cool/mc/1.8/" class="btn-hmcl btn-center p-4">
+                        <i class="fa fa-cubes text-xl mr-2"></i>
+                        <span class="font-medium">我的世界</span>
+                    </a>
+                    <a href="https://bloxd.io/" class="btn-hmcl btn-center p-4">
+                        <i class="fa fa-building text-xl mr-2"></i>
+                        <span class="font-medium">BloxdMC小游戏</span>
+                    </a>
+                    <a href="https://enazo.cn/" class="btn-hmcl btn-center p-4">
+                        <i class="fa fa-paint-brush text-xl mr-2"></i>
+                        <span class="font-medium">绘谜</span>
+                    </a>
+                    <a href="https://pvz.heheda.top/" class="btn-hmcl btn-center p-4">
+                        <i class="fa fa-leaf text-xl mr-2"></i>
+                        <span class="font-medium">植物大战僵尸</span>
+                    </a>
+                    <a href="https://ys.mihoyo.com/cloud/#/" class="btn-hmcl btn-center p-4">
+                        <i class="fa fa-cloud text-xl mr-2"></i>
+                        <span class="font-medium">云原神</span>
+                    </a>
+                    <a href="https://www.bilibili.com/" class="btn-hmcl btn-center p-4">
+                        <i class="fa fa-play-circle text-xl mr-2"></i>
+                        <span class="font-medium">B站</span>
+                    </a>
+                </div>
+                
+                <!-- 底部版权信息 -->
+                <div class="mt-12 text-center text-gray-500 text-sm">
+                    <p>© 2025 游戏收录站 版权所有</p>
+                    <p class="mt-2">本网站仅提供导航服务，所有资源均来自互联网</p>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>    
